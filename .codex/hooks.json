@@ -1,0 +1,30 @@
+{
+    "hooks": [
+        {
+            "event": "SessionStart",
+            "command": "/bin/sh -c 'node \"$(git rev-parse --show-toplevel)/.codex/hooks/git-token-init.mjs\"'",
+            "timeout": 60
+        },
+        {
+            "event": "PreToolUse",
+            "matcher": "\\bgit\\b",
+            "command": "/bin/sh -c 'node \"$(git rev-parse --show-toplevel)/.codex/hooks/git-filter.mjs\"'"
+        },
+        {
+            "event": "SessionStart",
+            "command": "/bin/sh -c '\"$(git rev-parse --show-toplevel)/.codex/hooks/gh-install.sh\"'",
+            "timeout": 120
+        },
+        {
+            "event": "PreToolUse",
+            "matcher": "\\bgh\\b",
+            "command": "/bin/sh -c 'node \"$(git rev-parse --show-toplevel)/.codex/hooks/gh-filter.mjs\"'"
+        },
+        {
+            "event": "SessionStart",
+            "command": "pnpm install",
+            "timeout": 120,
+            "statusMessage": "Installing dependencies..."
+        }
+    ]
+}

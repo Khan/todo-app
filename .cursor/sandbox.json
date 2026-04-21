@@ -1,0 +1,24 @@
+{
+    "filesystem": {
+        "allowWrite": [
+            "/tmp/cursor",
+            "~/.cursor-agent",
+            "~/.cache/gh",
+            "~/khan/devtools/khan-linter",
+            "~/.npm",
+            "~/.local/share/mise",
+            "~/.local/state/mise",
+            "~/.cache/node/corepack",
+            "~/Library/pnpm"
+        ]
+    },
+    "network": {
+        "allowedDomains": [
+            "localhost",
+            "github.com",
+            "api.github.com",
+            "registry.npmjs.org",
+            "npm.pkg.github.com"
+        ]
+    }
+}

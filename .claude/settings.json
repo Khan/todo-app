@@ -1,0 +1,105 @@
+{
+    "$schema": "https://json.schemastore.org/claude-code-settings.json",
+    "sandbox": {
+        "filesystem": {
+            "allowWrite": [
+                ".",
+                "/tmp/claude",
+                "/private/tmp/claude",
+                "~/.claude/session-env",
+                "~/.claude/debug",
+                "~/.cache/gh",
+                "~/khan/devtools/khan-linter",
+                "~/.npm",
+                "~/.local/share/mise",
+                "~/.local/state/mise",
+                "~/.cache/node/corepack",
+                "~/Library/pnpm"
+            ],
+            "denyWrite": [
+                ".claude/settings.json",
+                ".claude/hooks",
+                "~/.claude/settings.json",
+                "~/.claude/hooks"
+            ]
+        },
+        "enabled": true,
+        "autoAllowBashIfSandboxed": true,
+        "allowUnsandboxedCommands": false,
+        "network": {
+            "allowLocalBinding": true,
+            "allowedDomains": [
+                "localhost",
+                "github.com",
+                "api.github.com",
+                "registry.npmjs.org",
+                "npm.pkg.github.com"
+            ]
+        },
+        "enableWeakerNetworkIsolation": true,
+        "excludedCommands": [
+            "pbcopy"
+        ]
+    },
+    "hooks": {
+        "SessionStart": [
+            {
+                "hooks": [
+                    {
+                        "type": "command",
+                        "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/git-token-init.mjs"
+                    }
+                ]
+            },
+            {
+                "matcher": "startup",
+                "hooks": [
+                    {
+                        "type": "command",
+                        "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/gh-install.sh"
+                    }
+                ]
+            },
+            {
+                "hooks": [
+                    {
+                        "type": "command",
+                        "command": "pnpm install",
+                        "timeout": 120,
+                        "statusMessage": "Installing dependencies..."
+                    }
+                ]
+            }
+        ],
+        "PreToolUse": [
+            {
+                "matcher": "Bash",
+                "hooks": [
+                    {
+                        "type": "command",
+                        "if": "Bash(git *)",
+                        "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/git-filter.mjs"
+                    }
+                ]
+            },
+            {
+                "matcher": "Bash",
+                "hooks": [
+                    {
+                        "type": "command",
+                        "if": "Bash(gh *)",
+                        "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/gh-filter.mjs"
+                    }
+                ]
+            }
+        ]
+    },
+    "permissions": {
+        "ask": [
+            "mcp__*"
+        ],
+        "allow": [
+            "Bash(pbcopy)"
+        ]
+    }
+}
