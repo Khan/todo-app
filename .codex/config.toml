@@ -7,7 +7,5 @@ writable_roots = ["/tmp/codex", "~/.cache/gh", "~/khan/devtools/khan-linter", "~
 codex_hooks = true
 shell_snapshot = true
 
-[[permissions]]
-
 [permissions.network.domains]
 allow = ["github.com", "api.github.com", "registry.npmjs.org", "npm.pkg.github.com"]

@@ -15,7 +15,7 @@ const inputData = JSON.parse(Buffer.concat(chunks).toString("utf8"));
 
 // Detect agent format: Cursor sends `command` at the top level and includes
 // `hook_event_name`; Claude Code / Codex send `tool_name` + `tool_input`.
-const isCursor = "hook_event_name" in inputData;
+const isCursor = !("tool_name" in inputData);
 const toolName = inputData.tool_name ?? "";
 const command = isCursor
     ? (inputData.command ?? "")
@@ -57,7 +57,7 @@ if (!isCursor && toolName !== "Bash") {
 }
 
 // Only process commands that contain a `git` invocation.
-if (!/\bgit\b/.test(command)) {
+if (!/^\s*git\b/.test(command)) {
     console.log(JSON.stringify(allow()));
     process.exit(0);
 }

@@ -21,7 +21,8 @@
                 ".claude/hooks",
                 "~/.claude/settings.json",
                 "~/.claude/hooks"
-            ]
+            ],
+            "allowGitConfig": true
         },
         "enabled": true,
         "autoAllowBashIfSandboxed": true,
@@ -64,7 +65,7 @@
                 "hooks": [
                     {
                         "type": "command",
-                        "command": "pnpm install",
+                        "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/pnpm-install.mjs",
                         "timeout": 120,
                         "statusMessage": "Installing dependencies..."
                     }
