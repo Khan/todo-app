@@ -23,7 +23,7 @@
                 "hooks": [
                     {
                         "type": "command",
-                        "command": "pnpm install",
+                        "command": "/bin/sh -c 'node \"$(git rev-parse --show-toplevel)/.codex/hooks/pnpm-install.mjs\"'",
                         "timeout": 120,
                         "statusMessage": "Installing dependencies..."
                     }
@@ -32,7 +32,6 @@
         ],
         "PreToolUse": [
             {
-                "matcher": "Bash",
                 "hooks": [
                     {
                         "type": "command",
@@ -41,7 +40,6 @@
                 ]
             },
             {
-                "matcher": "Bash",
                 "hooks": [
                     {
                         "type": "command",

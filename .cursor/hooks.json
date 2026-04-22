@@ -11,7 +11,7 @@
                 "timeout": 120
             },
             {
-                "command": "pnpm install",
+                "command": "$(git rev-parse --show-toplevel)/.cursor/hooks/pnpm-install.mjs",
                 "timeout": 120
             }
         ],
